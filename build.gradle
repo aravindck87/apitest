@@ -1,0 +1,58 @@
+group 'bsgintegrationtests'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+def jfrogCredentials = {
+    username 'developer'
+    password 'Read0n1y'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+
+dependencies {
+    compile(
+            'com.github.everit-org.json-schema:org.everit.json.schema:1.11.1',
+            'org.codehaus.groovy:groovy-all:2.4.9',
+            'org.spockframework:spock-core:1.1-groovy-2.4',
+            'junit:junit:4.12',
+            'io.rest-assured:rest-assured:3.0.0',
+            'io.rest-assured:spring-mock-mvc:3.0.0',
+            'org.hamcrest:hamcrest-junit:2.0.0.0',
+            'com.googlecode.json-simple:json-simple:1.1.1',
+            'com.athaydes:spock-reports:1.4.0',
+            'org.apache.jmeter:ApacheJMeter_java:3.0',
+            'commons-lang:commons-lang:2.6'
+    )
+}
+
+task testJar(type: Jar) {
+    zip64 true
+    classifier = 'tests'
+    from sourceSets.test.output
+    from {
+        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+test {
+    dependsOn clean
+    System.properties.each { name, value ->
+        systemProperty name as String, value as String
+    }
+
+    testLogging.showStandardStreams = true
+}
