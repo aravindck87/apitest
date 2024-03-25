@@ -22,8 +22,8 @@ class apiEndpointTests extends SchemaTest {
     }
 
 
-
     def "Test Zipcode endpoint"() {
+        //Test
         given: "I have the valid endpoint"
 
         when: "I send a get request to check the end point"
