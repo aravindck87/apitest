@@ -6,11 +6,6 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
-def jfrogCredentials = {
-    username 'developer'
-    password 'Read0n1y'
-}
-
 repositories {
     mavenCentral()
     maven {
@@ -31,7 +26,8 @@ dependencies {
             'com.googlecode.json-simple:json-simple:1.1.1',
             'com.athaydes:spock-reports:1.4.0',
             'org.apache.jmeter:ApacheJMeter_java:3.0',
-            'commons-lang:commons-lang:2.6'
+            'commons-lang:commons-lang:2.6',
+            'org.jsoup:jsoup:1.8.3'
     )
 }
 
